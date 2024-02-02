@@ -1,4 +1,4 @@
-import {Product} from "../domain/product";
+import {Product} from "../domain/Product";
 import {ProductRepository} from "../domain/productrepository";
 
 export default class GetOneCase {

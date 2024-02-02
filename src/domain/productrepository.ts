@@ -1,4 +1,4 @@
-import { Product } from "../domain/product";
+import { Product } from "../domain/Product";
 
 export interface ProductRepository {
   save(name: string,price:number): Promise<Product>;

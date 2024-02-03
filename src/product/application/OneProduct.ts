@@ -1,15 +1,15 @@
 import {Product} from "../domain/Product";
 import {ProductRepository} from "../domain/productrepository";
 
-export default class UpdateCase {
+export default class GetOneCase {
     constructor(readonly productRepository: ProductRepository) {}
 
-    async run(id: string,name:string,price:number): Promise<Product | null> {
+    async run(id: string): Promise<Product | string> {
         try {
-        const result = await this.productRepository.update(id,name,price);
+        const result = await this.productRepository.findById(id);
         return result;
         } catch {
-        return null;
+        return 'ocurrió un error';
         }
     }
 }

@@ -1,15 +1,16 @@
 import {Product} from "../domain/Product";
 import {ProductRepository} from "../domain/productrepository";
 
-export default class GetAllCase {
+export default class AllProductCase {
     constructor(readonly productRepository: ProductRepository) {}
 
-    async run(): Promise<Product | null> {
+    async run(): Promise<Array<Product> | string> {
         try {
-        const result = await this.productRepository.findAll();
-        return result;
+        
+        const result = await this.productRepository.all();
+        return result
         } catch {
-        return null;
+        return "null";
         }
     }
 }

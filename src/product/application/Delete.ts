@@ -1,12 +1,12 @@
 import {Product} from "../domain/Product";
 import {ProductRepository} from "../domain/productrepository";
 
-export default class SaveCase {
+export default class DeleteCase {
     constructor(readonly productRepository: ProductRepository) {}
 
-    async run(name:string,price:number): Promise<Product | null> {
+    async run(id:string): Promise<string | null> {
         try {
-        const result = await this.productRepository.save(name,price);
+        const result = await this.productRepository.delete(id);
         return result;
         } catch {
         return null;

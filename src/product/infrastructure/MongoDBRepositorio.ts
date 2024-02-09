@@ -1,16 +1,17 @@
 
 import { Product } from "../domain/Product";
 import { ProductRepository } from "../domain/productrepository";
-import { connectToDatabase } from '../../../db';
-import { collections } from "../../../db";
+import { connectToDatabase } from '../../db/connectMongoDB';
+import { collections } from "../../db/connectMongoDB";
 import { ObjectId } from 'mongodb';
 
 
   export default class ProductMongooseRepository implements ProductRepository {
     async all(): Promise<Array<Product>|string> {
       try {
-        await connectToDatabase();
-        const products = (await collections.productos?.find({}).toArray());
+        const collectionName = "productos"
+        await connectToDatabase(collectionName);
+        const products = (await collections.name?.find({}).toArray());
         console.log(products);
         if (products) {
           
@@ -29,14 +30,15 @@ import { ObjectId } from 'mongodb';
   }
     async save(name:string,price:number): Promise<Product> {
       try {
-        await connectToDatabase();
+        const collectionName = "productos"
+        await connectToDatabase(collectionName);
         
         const newProduct: Product = {
           name: name,
           price: price
         };
   
-        const result = await collections.productos?.insertOne(newProduct);
+        const result = await collections.name?.insertOne(newProduct);
 
         if (result && result.insertedId) {
           
@@ -51,9 +53,10 @@ import { ObjectId } from 'mongodb';
   
     async findById(id: string): Promise<Product | string> {
       try {
-        await connectToDatabase();
+        const collectionName = "productos"
+        await connectToDatabase(collectionName);
         const query = { _id: new ObjectId(id) };
-        const product= (await collections.productos?.findOne(query)) as Product|null;
+        const product= (await collections.name?.findOne(query)) as Product|null;
 
         if (product) {
             return product
@@ -68,9 +71,10 @@ import { ObjectId } from 'mongodb';
 
     async delete(id:string): Promise<string> {
       try {
-        await connectToDatabase();
+        const collectionName = "productos"
+        await connectToDatabase(collectionName);
         const query = { _id: new ObjectId(id) };
-        const result = await collections.productos?.deleteOne(query);
+        const result = await collections.name?.deleteOne(query);
 
         if (result && result.deletedCount) {
             return `Successfully removed product with id`;
@@ -89,14 +93,15 @@ import { ObjectId } from 'mongodb';
     async update(id:string,name:string,price:number): Promise<Product|string> {
         
         try {
-          await connectToDatabase();
+          const collectionName = "productos"
+          await connectToDatabase(collectionName);
           const pudate = {
             name:name,
             price:price
           }
           const query = { _id: new ObjectId(id) };
         
-          const result = await collections.productos?.updateOne(query, { $set: pudate });
+          const result = await collections.name?.updateOne(query, { $set: pudate });
   
           if (result){
             return `Se actualizó correctamente`;

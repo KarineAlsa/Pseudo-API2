@@ -1,8 +1,8 @@
 import * as mongoDB from "mongodb";
 
-export const collections: { productos?: mongoDB.Collection } = {};
+export const collections: { name?: mongoDB.Collection } = {};
 
-export async function connectToDatabase() {
+export async function connectToDatabase(collectionName : string) {
 
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(
     "mongodb://localhost:27017"
@@ -12,9 +12,9 @@ export async function connectToDatabase() {
 
   const db: mongoDB.Db = client.db("prueba");
 
-  const productCollection: mongoDB.Collection = db.collection("productos");
+  const productCollection: mongoDB.Collection = db.collection(collectionName);
 
-  collections.productos = productCollection;
+  collections.name = productCollection;
 
   console.log(
     `Successfully connected to database: ${db.databaseName} and collection: ${productCollection.collectionName}`

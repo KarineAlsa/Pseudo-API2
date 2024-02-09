@@ -6,13 +6,13 @@ import {
     deleteOneController,
     getAllProductsController
   } from "./dependencies";
-const userRouter = express.Router();
+const productRouter = express.Router();
 
-userRouter.get("/", getOneController.run.bind(getAllProductsController));
-userRouter.get("/:id", getOneController.run.bind(getOneController));
-userRouter.put("/:id", updateOneController.run.bind(updateOneController));
+productRouter.get("/", getOneController.run.bind(getAllProductsController));
+productRouter.get("/:id", getOneController.run.bind(getOneController));
+productRouter.put("/:id", updateOneController.run.bind(updateOneController));
 
-userRouter.delete("/:id", deleteOneController.run.bind(deleteOneController));
-userRouter.post("/", createProductController.run.bind(createProductController));
+productRouter.delete("/:id", deleteOneController.run.bind(deleteOneController));
+productRouter.post("/", createProductController.run.bind(createProductController));
 
-export default userRouter;
+export default productRouter;
